@@ -1,0 +1,28 @@
+apply plugin: 'eclipse'
+
+allprojects {
+  group = "net.nuttle"
+  version = "1.0"
+  apply plugin: 'eclipse'
+}
+
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:1.5.2.RELEASE")
+    }
+}
+
+subprojects {
+  apply plugin: 'java'
+  apply from: '../libs/libs.gradle'
+  sourceCompatibility = 1.8
+  repositories {
+    mavenCentral()
+  }
+  //define dependencies needed by all subprojects
+  dependencies(LIBS.logging)
+  
+}

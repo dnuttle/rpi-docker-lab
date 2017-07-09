@@ -1,0 +1,9 @@
+include "config"
+include "persistence"
+include "exec"
+include "shared"
+
+project(":config").name = "rpi-docker-config"
+project(":persistence").name = "rpi-docker-persistence"
+project(":exec").name = "rpi-docker-exec"
+project(":shared").name = "rpi-docker-shared"

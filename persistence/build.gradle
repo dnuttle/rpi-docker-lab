@@ -1,0 +1,25 @@
+apply plugin: 'org.springframework.boot'
+
+dependencies (LIBS.sqlite)
+dependencies (LIBS.shared)
+dependencies (LIBS.springboot)
+
+jar {
+  manifest {
+      attributes 'Implementation-Title': 'Raspberry Pi/Docker Persistence',
+                 'Implementation-Version': version,
+                 'Main-Class': 'net.nuttle.rpilab.persist.app.PersistApp'
+  }
+}
+
+task fatJar(type: Jar) {
+  manifest {
+      attributes 'Implementation-Title': 'Raspberry Pi/Docker Persistence',
+          'Implementation-Version': version,
+          'Main-Class': 'net.nuttle.rpilab.persist.app.PersistApp'
+  }
+  baseName = project.name + '-all'
+  from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
+  with jar
+}
+

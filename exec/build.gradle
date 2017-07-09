@@ -1,0 +1,13 @@
+apply plugin: 'org.springframework.boot'
+
+dependencies {
+  /*
+  compile(LIBS.springboot-web) {
+    exclude module: LIB.springboot-tomcat
+  }
+  compile(LIBS.springboot-thymeleaf)
+  compile(LIBS.springboot-jetty)
+  compile(LIBS.springboot-actuator)
+  compile(LIBS.springboot-logging)
+  */
+}
