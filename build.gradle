@@ -26,3 +26,7 @@ subprojects {
   dependencies(LIBS.logging)
   
 }
+
+task wrapper(type:Wrapper) {
+  gradleVersion = '2.11'
+}
