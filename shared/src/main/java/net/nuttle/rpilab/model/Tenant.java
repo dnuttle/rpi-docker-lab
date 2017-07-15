@@ -5,6 +5,10 @@ public class Tenant {
   private String id;
   private String name;
   private String desc;
+
+  public Tenant() {
+    
+  }
   
   public Tenant(String id, String name, String desc) {
     this.id = id;
