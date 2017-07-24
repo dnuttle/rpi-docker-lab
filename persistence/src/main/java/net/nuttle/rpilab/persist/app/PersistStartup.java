@@ -9,6 +9,7 @@ import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.stereotype.Component;
 
+import net.nuttle.rpilab.persist.dao.EnvDAO;
 import net.nuttle.rpilab.persist.dao.TenantDAO;
 
 @Component
@@ -18,10 +19,13 @@ public class PersistStartup implements ApplicationRunner {
   
   @Autowired
   TenantDAO tenantDao;
+  @Autowired
+  EnvDAO envDao;
   
   public void run(ApplicationArguments args) {
     try {
-      tenantDao.createTenantTable();
+      tenantDao.createTable();
+      envDao.createTable();
     } catch (SQLException e) {
       LOG.error("Exception creating tenant table", e);
     }

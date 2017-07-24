@@ -15,71 +15,76 @@ import org.springframework.stereotype.Component;
 import net.nuttle.rpilab.model.Tenant;
 
 @Component
-public class TenantDAO extends AbstractDAO  {
+public class TenantDAO extends AbstractDAO<Tenant>  {
 
+  @SuppressWarnings("unused")
   private static final Logger LOG = LoggerFactory.getLogger(TenantDAO.class);
   
   public TenantDAO() {}
-  
-  public Tenant get(String id) throws SQLException {
+
+  @Override
+  public Tenant get(Tenant t) throws SQLException {
     Connection conn = null;
     try {
       conn = getConnection();
       String sql = "SELECT * FROM TENANT WHERE ID=?";
       PreparedStatement stmt = conn.prepareStatement(sql);
-      stmt.setString(1, id);
+      stmt.setString(1, t.getID());
       ResultSet rs = stmt.executeQuery();
       if (!rs.next()) {
         return null;
       }
       String name = rs.getString("NAME");
       String desc = rs.getString("DESC");
-      Tenant t = new Tenant(id, name, desc);
+      t = new Tenant(t.getID(), name, desc);
       return t;
     } finally {
       close(conn);
     }
   }
-  
-  public int create(String id, String name, String desc) throws SQLException {
+
+  @Override
+  public int create(Tenant t) throws SQLException {
     Connection conn = null;
     try {
       conn = getConnection();
       String sql = "INSERT INTO TENANT (ID, NAME, DESC) VALUES(?, ?, ?)";
       PreparedStatement stmt = conn.prepareStatement(sql);
-      stmt.setString(1,  id);
-      stmt.setString(2, name);
-      stmt.setString(3,  desc);
+      stmt.setString(1,  t.getID());
+      stmt.setString(2, t.getName());
+      stmt.setString(3,  t.getDesc());
       stmt.execute();
       return stmt.getUpdateCount();
     } finally {
       close(conn);
     }
   }
-  
-  public int update(String id, String name, String desc) throws SQLException {
+
+  @Override
+  public int update(Tenant t) throws SQLException {
     Connection conn = null;
     try {
       conn = getConnection();
       String sql = "UPDATE TENANT SET NAME=?, DESC=? WHERE ID=?";
       PreparedStatement stmt = conn.prepareStatement(sql);
-      stmt.setString(1, name);
-      stmt.setString(2,  desc);
-      stmt.setString(3,  id);
+      stmt.setString(1, t.getName());
+      stmt.setString(2,  t.getDesc());
+      stmt.setString(3,  t.getID());
       stmt.execute();
       return stmt.getUpdateCount();
     } finally {
       close(conn);
     }
   }
-  
-  public int delete(String id) throws SQLException {
+
+  @Override
+  public int delete(Tenant t) throws SQLException {
     Connection conn = null;
     try {
       conn = getConnection();
       String sql = "DELETE FROM TENANT WHERE ID = ?";
       PreparedStatement stmt = conn.prepareStatement(sql);
-      stmt.setString(1,  id);
+      stmt.setString(1,  t.getID());
       stmt.execute();
       return stmt.getUpdateCount();
     } finally {
@@ -109,7 +114,8 @@ public class TenantDAO extends AbstractDAO  {
     }
   }
   
-  public void createTenantTable() throws SQLException {
+  @Override
+  public void createTable() throws SQLException {
     String sql = "CREATE TABLE IF NOT EXISTS tenant (\n"
       + "id integer PRIMARY KEY, \n"
       + "name text NOT NULL \n, "
