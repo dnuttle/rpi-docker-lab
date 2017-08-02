@@ -1,4 +1,4 @@
-package net.nuttle.rpilab.persist.controller;
+package net.nuttle.rpilab.controller;
 
 public class InvalidHeaderException extends RuntimeException {
 

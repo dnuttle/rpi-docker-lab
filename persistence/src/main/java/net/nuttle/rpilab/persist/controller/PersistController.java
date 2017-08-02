@@ -15,16 +15,18 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import net.nuttle.rpilab.controller.InvalidHeaderException;
 import net.nuttle.rpilab.model.Env;
 import net.nuttle.rpilab.model.Tenant;
 import net.nuttle.rpilab.persist.dao.EnvDAO;
 import net.nuttle.rpilab.persist.dao.TenantDAO;
 
+import static net.nuttle.rpilab.config.Constants.CONTENT_TYPE_APP_JSON;
+
 @Controller
 public class PersistController {
 
   private static final Logger LOG = LoggerFactory.getLogger(PersistController.class);
-  private static final String CONTENT_TYPE_APP_JSON = "application/json";
   
   @Autowired
   TenantDAO tenantDao;

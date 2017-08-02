@@ -1,13 +1,24 @@
 apply plugin: 'org.springframework.boot'
 
-dependencies {
-  /*
-  compile(LIBS.springboot-web) {
-    exclude module: LIB.springboot-tomcat
+dependencies (LIBS.sqlite)
+dependencies (LIBS.shared)
+dependencies (LIBS.springboot)
+
+jar {
+  manifest {
+      attributes 'Implementation-Title': 'Raspberry Pi/Docker Config',
+                 'Implementation-Version': version,
+                 'Main-Class': 'net.nuttle.rpilab.config.app.ConfigApp'
   }
-  compile(LIBS.springboot-thymeleaf)
-  compile(LIBS.springboot-jetty)
-  compile(LIBS.springboot-actuator)
-  compile(LIBS.springboot-logging)
-  */
+}
+
+task fatJar(type: Jar) {
+  manifest {
+      attributes 'Implementation-Title': 'Raspberry Pi/Docker Configuration',
+          'Implementation-Version': version,
+          'Main-Class': 'net.nuttle.rpilab.config.app.ConfigApp'
+  }
+  baseName = project.name + '-all'
+  from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
+  with jar
 }
