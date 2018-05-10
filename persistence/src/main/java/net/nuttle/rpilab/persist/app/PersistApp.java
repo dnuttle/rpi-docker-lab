@@ -5,7 +5,6 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,7 +13,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
 
 import net.nuttle.rpilab.model.Tenant;
-import net.nuttle.rpilab.persist.dao.TenantDAO;
 
 @SpringBootApplication
 @ComponentScan(basePackages={"net.nuttle.rpilab"})

@@ -9,7 +9,6 @@ import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.stereotype.Component;
 
-import net.nuttle.rpilab.config.Constants;
 import net.nuttle.rpilab.persist.dao.EnvDAO;
 import net.nuttle.rpilab.persist.dao.TenantDAO;
 
@@ -24,9 +23,6 @@ public class PersistStartup implements ApplicationRunner {
   EnvDAO envDao;
   
   public void run(ApplicationArguments args) throws StartupException {
-    if (System.getenv(Constants.ENV_PERSIST_URL)==null) {
-      throw new StartupException("The env var " + Constants.ENV_PERSIST_URL + " must be defined");
-    }
     try {
       tenantDao.createTable();
       envDao.createTable();
